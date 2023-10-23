@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(320deg, black, rgb(15, 15, 15));
+            font-family: sans-serif;
+        }
+
+        .calculator {
+            width: 400px;
+            padding: 20px 35px;
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(67, 65, 65, 0.9);
+            background: rgba(3, 3, 3, 0.01);
+            border: 1px solid rgba(0, 0, 0, 0.34);
+            backdrop-filter: blur(5.5px);
+            -webkit-backdrop-filter: blur(5.5px);
+        }
+
+        .screen {
+            width: 90%;
+            padding: 20px;
+            margin-bottom: 10px;
+            background: rgb(0, 0, 0);
+            border-radius: 9px;
+            box-shadow: 5px 5px 30px rgba(54, 51, 51, 0.75);
+            color: rgb(223, 213, 213);
+            font-size: 35px;
+            text-align: right;
+            overflow: auto;
+        }
+       
+        .cal-button-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 8% 0;
+        }
+
+        .cal-button {
+            width: 20%;
+            height: 65px;
+            background: rgba(20, 20, 20, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(42, 40, 40, 0.1);
+            color: rgb(255, 255, 255);
+            backdrop-filter: blur(5.5px);
+        }
+
+        .cal-button:last-child {
+            background: rgba(90, 85, 85, 0.75);
+            border: 1px solid rgba(211, 202, 202, 0.1);
+            box-shadow: 0 4px 30px rgba(35, 35, 35, 0.1);
+            color: #ffffff;
+        }
+
+        .cal-button:hover {
+            background-color: inherit;
+        }
+
+        .cal-button:active {
+            background-color: rgb(0, 0, 0);
+        }
+
+        .double {
+            width: 50%;
+        }
+
+        .triple {
+            width: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+       <input class="screen" id="display" value="0">
+        <div class="cal-button-row">
+            <button class="cal-button double" onclick="clearDisplay()">C</button>
+            <button class="cal-button" id="backspace-button" onclick="backspace()">&#9003;</button>
+            <button class="cal-button" onclick="appendToDisplay('/')">&divide;</button>
+        </div>
+        <div class="cal-button-row">
+            <button class="cal-button" onclick="appendToDisplay('7')">7</button>
+            <button class="cal-button" onclick="appendToDisplay('8')">8</button>
+            <button class="cal-button" onclick="appendToDisplay('9')">9</button>
+            <button class="cal-button" onclick="appendToDisplay('*')">&times;</button>
+        </div>
+        <div class= "cal-button-row">
+            <button class="cal-button" onclick="appendToDisplay('4')">4</button>
+            <button class="cal-button" onclick="appendToDisplay('5')">5</button>
+            <button class="cal-button" onclick="appendToDisplay('6')">6</button>
+            <button class="cal-button" onclick="appendToDisplay('-')">&#8722;</button>
+        </div>
+        <div class="cal-button-row">
+            <button class="cal-button" onclick="appendToDisplay('1')">1</button>
+            <button class="cal-button" onclick="appendToDisplay('2')">2</button>
+            <button class="cal-button" onclick="appendToDisplay('3')">3</button>
+            <button class="cal-button" onclick="appendToDisplay('+')">&#43;</button>
+        </div>
+        <div class="cal-button-row">
+            <button class="cal-button triple" onclick="appendToDisplay('0')">0</button>
+            <button class="cal-button" onclick="appendToDisplay('.')">.</button>
+            <button class="cal-button" onclick="calculateResult()">&#61;</button>
+        </div>
+    </div>
+    
+    <script>
+        function appendToDisplay(value) {
+            const display = document.getElementById('display');
+            if (display.value === '0' && !isNaN(value)) {
+                display.value = value;
+            } else {
+                display.value += value;
+            }
+        }
+
+        function backspace() {
+            const display = document.getElementById('display');
+            display.value = display.value.slice(0, -1);
+            if (display.value.length === 0) {
+                display.value = '0';
+            }
+        }
+
+        function clearDisplay() {
+            document.getElementById('display').value = '0';
+        }
+
+        function calculateResult() {
+            try {
+                document.getElementById('display').value = eval(document.getElementById('display').value);
+            } catch (error) {
+                document.getElementById('display').value = 'Error';
+            }
+        }
+    </script>
+</body>
+</html>
